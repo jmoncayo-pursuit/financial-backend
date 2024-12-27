@@ -122,3 +122,19 @@ CREATE TABLE Users (
   lastloginat TIMESTAMP
 );
 ```
+
+## Email Configuration
+
+To enable email recovery functionality, you need to set up your email credentials in the `.env` file:
+
+1. Create a `.env` file in the `financial-backend` directory if it doesn't exist.
+2. Add the following lines to the `.env` file:
+
+```env
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-email-password-or-app-password
+```
+
+
+Make sure to replace `your-email@gmail.com` and `your-email-password-or-app-password` with your actual email and password. If you are using Gmail, you may need to enable "Less secure app access" or use an App Password if you have 2-Step Verification enabled.
+

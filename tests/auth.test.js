@@ -122,4 +122,22 @@ describe('Authentication Endpoints', () => {
       expect(result.rows[0].lastloginat).not.toBeNull();
     });
   });
+
+  describe('Password Recovery', () => {
+    it('should send recovery email for valid email', async () => {
+      const response = await request(app).post('/api/recover').send({
+        email: 'test@example.com',
+      });
+      expect(response.status).toBe(200);
+      expect(response.text).toBe('Recovery email sent');
+    });
+
+    it('should return error for invalid email', async () => {
+      const response = await request(app).post('/api/recover').send({
+        email: 'invalid-email',
+      });
+      expect(response.status).toBe(400);
+      expect(response.text).toBe('Invalid email format');
+    });
+  });
 });

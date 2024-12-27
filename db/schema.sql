@@ -10,7 +10,9 @@ CREATE TABLE Users (
   email VARCHAR(255) UNIQUE NOT NULL,
   passwordhash VARCHAR(255) NOT NULL,
   createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  lastloginat TIMESTAMP
+  lastloginat TIMESTAMP,
+  resetToken VARCHAR(255),
+  resetTokenExpiration TIMESTAMP
 );
 
 -- Create index on email for faster lookups
