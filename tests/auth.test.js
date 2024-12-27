@@ -30,7 +30,7 @@ describe('Authentication Endpoints', () => {
 
       expect(response.status).toBe(400);
       expect(response.text).toContain(
-        'must be at least 8 characters'
+        'Password must be at least 8 characters long and include a mix of letters, numbers, or symbols.'
       );
     });
 
@@ -49,6 +49,22 @@ describe('Authentication Endpoints', () => {
 
       expect(response.status).toBe(409);
       expect(response.text).toBe('Email already exists');
+    });
+
+    it('should reject missing email', async () => {
+      const response = await request(app).post('/api/signup').send({
+        password: 'ValidPass123!',
+      });
+      expect(response.status).toBe(400);
+      expect(response.text).toContain('Email is required');
+    });
+
+    it('should reject missing password', async () => {
+      const response = await request(app).post('/api/signup').send({
+        email: 'newuser@example.com',
+      });
+      expect(response.status).toBe(400);
+      expect(response.text).toContain('Password is required');
     });
   });
 

@@ -21,12 +21,13 @@ const createPool = () => {
 
 const pool = createPool();
 
-// Middleware
-app.use(express.json());
+// Middleware MUST be before routes
 app.use(cors());
+app.use(express.json());
 
 // Add password validation function
 const validatePassword = (password) => {
+  console.log('Validating password:', password); // Debugging line
   // Length check
   if (password.length < 8) return false;
 
@@ -35,6 +36,13 @@ const validatePassword = (password) => {
   const hasLower = /[a-z]/.test(password);
   const hasNumber = /[0-9]/.test(password);
   const hasSpecial = /[^A-Za-z0-9]/.test(password);
+
+  console.log('Password validation results:', {
+    hasUpper,
+    hasLower,
+    hasNumber,
+    hasSpecial,
+  }); // Debugging line
 
   const varietyCount = [
     hasUpper,
@@ -57,8 +65,17 @@ app.post('/api/signup', async (req, res) => {
   let client;
 
   try {
+    // Validate presence of email and password
+    if (!email) {
+      return res.status(400).send('Email is required');
+    }
+    if (!password) {
+      return res.status(400).send('Password is required');
+    }
+
     // Validate password strength
-    if (!validatePassword(password)) {
+    const isValidPassword = validatePassword(password);
+    if (!isValidPassword) {
       return res
         .status(400)
         .send(
@@ -145,6 +162,11 @@ app.post('/api/login', async (req, res) => {
       client.release();
     }
   }
+});
+
+// Add this test route
+app.get('/test', (req, res) => {
+  res.json({ message: 'Server is running' });
 });
 
 // Export app for testing

@@ -1,15 +1,17 @@
--- Drop the table if it already exists
-DROP TABLE IF EXISTS Users;
+-- Drop database if exists and recreate
+DROP DATABASE IF EXISTS financial_dev;
+CREATE DATABASE financial_dev;
 
--- Create the Users table
+\c financial_dev;
+
+-- Create Users table
 CREATE TABLE Users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    passwordhash VARCHAR(255) NOT NULL,
-    createdat TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updatedat TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    lastloginat TIMESTAMP WITH TIME ZONE
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  passwordhash VARCHAR(255) NOT NULL,
+  createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  lastloginat TIMESTAMP
 );
 
--- Create an index on email for faster lookups
+-- Create index on email for faster lookups
 CREATE INDEX users_email_idx ON Users(email); 
