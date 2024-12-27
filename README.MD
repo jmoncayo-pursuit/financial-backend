@@ -7,8 +7,7 @@ Backend service for the Financial Tracking Application. Provides authentication 
 - Node.js
 - Express.js
 - PostgreSQL
-- Jest (Testing)
-- JWT (Authentication)
+- Jest
 
 ## Getting Started
 
@@ -56,9 +55,6 @@ JWT_SECRET=test-secret-key
 ```bash
 # Initialize database schema
 npm run db:init
-
-# (Optional) Add sample data
-npm run db:seed
 ```
 
 ## Available Scripts
@@ -66,37 +62,21 @@ npm run db:seed
 ### Development
 
 ```bash
-# Start development server with hot-reload
-npm run dev
-
-# Start production server
+# Start development server
 npm start
+
+# Start with auto-reload
+npm run dev
 ```
 
-### Testing
+### Database
 
 ```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Set up test database
-npm run test:setup
-```
-
-### Database Management
-
-```bash
-# Reset database to initial state
-npm run db:reset
-
 # Initialize database schema
 npm run db:init
 
-# Add sample data
-npm run db:seed
+# Reset database
+npm run db:reset
 ```
 
 ## API Endpoints
@@ -116,13 +96,6 @@ Request:
 }
 ```
 
-Responses:
-
-- 201: User created
-- 400: Invalid password
-- 409: Email already exists
-- 500: Server error
-
 #### POST /api/login
 
 Authenticate a user.
@@ -135,12 +108,6 @@ Request:
   "password": "SecurePass123!"
 }
 ```
-
-Responses:
-
-- 200: Success with JWT token
-- 401: Invalid credentials
-- 500: Server error
 
 ## Database Schema
 
